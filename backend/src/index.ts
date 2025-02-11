@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: 'http://localhost:8888',
+    origin: 'https://node-typescript-mongodb-fullstack.onrender.com',
     credentials: true,
   })
 );
