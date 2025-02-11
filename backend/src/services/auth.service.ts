@@ -81,12 +81,20 @@ export const loginUser = async ({
   password,
   userAgent,
 }: LoginParams) => {
-  const user = await UserModel.findOne({ email });
+  const user = await UserModel.findOne({ email }) as UserDocument;
   appAssert(user, UNAUTHORIZED, "Invalid email or password");
 
+  const isLocked = user.isLocked;
+  appAssert(!isLocked, 403, "Account is locked");
+
   const isValid = await user.comparePassword(password);
+  if (!isValid) {
+    await handleFailedLogin(user);
+  }
   appAssert(isValid, UNAUTHORIZED, "Invalid email or password");
 
+  await handleResetFailedLogin(user);
+  
   const userId = user._id;
   const session = await SessionModel.create({
     userId,
@@ -108,6 +116,14 @@ export const loginUser = async ({
     refreshToken,
   };
 };
+
+async function handleFailedLogin(user: UserDocument) {
+  await user.incrementFailedLoginAttempts();
+}
+
+async function handleResetFailedLogin(user: UserDocument) {
+  await user.resetFailedLoginAttempts();
+}
 
 export const verifyEmail = async (code: string) => {
   const validCode = await VerificationCodeModel.findOne({

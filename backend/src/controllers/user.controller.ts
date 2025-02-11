@@ -8,3 +8,12 @@ export const getUserHandler = catchErrors(async (req, res) => {
   appAssert(user, NOT_FOUND, "User not found");
   return res.status(OK).json(user.omitPassword());
 });
+
+export const updateUserHandler = catchErrors(async (req, res) => {
+  const user = await UserModel.findByIdAndUpdate(req.userId, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  appAssert(user, NOT_FOUND, "User not found");
+  return res.status(OK).json(user.omitPassword());
+});

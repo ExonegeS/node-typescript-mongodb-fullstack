@@ -22,7 +22,6 @@ const authenticate: RequestHandler = (req, res, next) => {
     AppErrorCode.InvalidAccessToken
   );
 
-  console.table(payload)
   req.userId = payload.userId;
   req.sessionId = payload.sessionId;
   next();
