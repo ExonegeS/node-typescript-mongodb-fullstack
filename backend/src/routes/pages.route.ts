@@ -22,7 +22,7 @@ pagesRouter.get("/register", (req, res) => {
 // Render the dashboard page
 pagesRouter.get("/dashboard", async (req, res) => {
     try {
-        const response = await axios.get(`${BACK_ORIGIN}:${PORT}/api/v1/user`, {
+        const response = await axios.get(`${BACK_ORIGIN}/api/v1/user`, {
             headers: {
               'Cookie': `accessToken=${req.cookies.accessToken}`
             },
@@ -44,7 +44,7 @@ pagesRouter.get("/dashboard", async (req, res) => {
 pagesRouter.get("/sessions", async (req, res) => {
     try {
         // Fetch the user's sessions from the backend
-        const response = await axios.get(`${BACK_ORIGIN}:${PORT}/api/v1/sessions`, {
+        const response = await axios.get(`${BACK_ORIGIN}/api/v1/sessions`, {
             headers: {
               'Cookie': `accessToken=${req.cookies.accessToken}`
             },
@@ -63,7 +63,7 @@ pagesRouter.get("/sessions", async (req, res) => {
 // Render the user update page
 pagesRouter.get("/update", async (req, res) => {
     try {
-        const response = await axios.get(`${BACK_ORIGIN}:${PORT}/api/v1/user`, {
+        const response = await axios.get(`${BACK_ORIGIN}/api/v1/user`, {
             headers: {
                 'Cookie': `accessToken=${req.cookies.accessToken}`
             },
