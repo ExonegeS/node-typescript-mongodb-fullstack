@@ -5,7 +5,7 @@ FROM node:16
 WORKDIR /usr/src/app
 
 # Copy only the package.json and package-lock.json files
-COPY package.json package-lock.json ./
+COPY package*.json ./
 
 # Install the dependencies
 RUN npm install
@@ -16,8 +16,8 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Ensure the 'dist' directory is created during the build process
-RUN mkdir -p dist
+# Copy the built files from the 'dist' directory
+COPY dist ./dist
 
 # Expose the port the app runs on
 EXPOSE ${BACKEND_PORT}
