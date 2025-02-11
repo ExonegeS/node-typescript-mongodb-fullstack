@@ -16,8 +16,8 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Copy the built files from the 'dist' directory
-COPY dist ./dist
+# Ensure the 'dist' directory is created during the build process
+RUN mkdir -p dist
 
 # Expose the port the app runs on
 EXPOSE ${BACKEND_PORT}
