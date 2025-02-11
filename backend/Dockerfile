@@ -19,6 +19,8 @@ RUN npm run build
 # Copy the views directory to the dist directory
 RUN cp -r ./src/views ./dist/views
 
+RUN cp -r ./src/public ./dist/public
+
 # Expose the port the app runs on
 EXPOSE ${BACKEND_PORT}
 
